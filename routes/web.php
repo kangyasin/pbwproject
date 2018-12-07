@@ -23,7 +23,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/admin/add_blog', 'AdminBlogController@add_blog');
     Route::get('/admin/edit_blog/{id}', 'AdminBlogController@edit_blog');
 
+    Route::get('/admin/add_profile', 'ProfileController@add_profile');
+
     Route::resource('adminblog', 'AdminBlogController');
+    Route::resource('adminprofile', 'ProfileController');
 
 });
 

@@ -35,6 +35,8 @@ class AdminBlogController extends Controller
         $blog = new Blog;
         $blog->title = $request->get('name');
         $blog->description = $request->get('description');
+        $blog->email = $request->get('email');
+        $blog->telp = $request->get('telp');
         // $blog->filename = $name;
         $blog->save();
 

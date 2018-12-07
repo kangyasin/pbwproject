@@ -2,9 +2,14 @@
 
 @section('content')
 <div class="container">
+@if (\Session::has('success'))
+      <div class="alert alert-success">
+        <p>{{ \Session::get('success') }}</p>
+      </div><br />
+     @endif
     <div class="row justify-content-center">
         <div class="right">
-    <a href="" class="btn btn-primary">Add New Blog</a>
+    <a href="{{url('admin/add_blog')}}" class="btn btn-primary">Add New Blog</a><br/><br/>
 </div>
         <div class="col-md-12">
             <div class="card">
@@ -27,8 +32,14 @@
                             <th scope="row">{{ $key += 1 }}</th>
                             <td>{{ $DataBlog->title }}</td>
                             <td>{{ $DataBlog->created_at }}</td>
-                            <td><a href="" class="btn btn-success">Edit</a></td>
-                            <td><a href="" class="btn btn-danger">Delete</a></td>
+                            <td><a href="{{url('admin/edit_blog', $DataBlog->id)}}" class="btn btn-success">Edit</a></td>
+                            <td>
+                            <form action="{{url('adminblog',$DataBlog->id)}}" method="post">
+                                @csrf
+                                <input name="_method" type="hidden" value="DELETE">
+                                <button onclick="return confirm('Are you sure?')" class="btn btn-danger" type="submit">Delete</button>
+                            </form>
+                            </td>
                         </tr>
                         @endforeach
 

@@ -20,6 +20,11 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/admin/blog', 'AdminBlogController@index');
+    Route::get('/admin/add_blog', 'AdminBlogController@add_blog');
+    Route::get('/admin/edit_blog/{id}', 'AdminBlogController@edit_blog');
+
+    Route::resource('adminblog', 'AdminBlogController');
+
 });
 
 Route::get('/blog', 'BlogController@index');

@@ -107,6 +107,13 @@ return [
             'table' => 'password_resets',
             'expire' => 60,
         ],
+
+        'customer' => [
+            'provider' => 'customer',
+            'email' => 'auth.customers.password',
+            'table' => 'password_resets',
+            'expire' => 60,
+        ],
     ],
 
 ];

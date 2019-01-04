@@ -93,11 +93,11 @@ class CustomerController extends Controller
           'email' =>  $cekCustomer->email,
           'password' =>  $cekCustomer->password,
       ];
-      return $credentials;
+      // return $credentials;
       if($cekCustomer){
         $auth = Auth::guard('customer')->attempt($credentials);
       }
-      // dd($auth);
+      dd($auth);
       if(isset($auth)){
         return redirect('/front/login');
         return "Berhasil Login";

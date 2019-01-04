@@ -21,7 +21,6 @@ class AdminBlogController extends Controller
 
     public function add_blog()
     {
-        // return 23;
         return view('admin/add_blog');
     }
 
@@ -35,9 +34,7 @@ class AdminBlogController extends Controller
         $blog = new Blog;
         $blog->title = $request->get('name');
         $blog->description = $request->get('description');
-        $blog->email = $request->get('email');
-        $blog->telp = $request->get('telp');
-        // $blog->filename = $name;
+        $blog->image_name = $name;
         $blog->save();
 
         return redirect('admin/blog')->with('success', 'Information has been added');

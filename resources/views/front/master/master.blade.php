@@ -98,6 +98,7 @@
                  </li>
 
                  <li><a href="#"><span class="glyphicon glyphicon-signal"></span> Link</a></li>
+                 <li><a href="/front/login"><span class="glyphicon glyphicon-send"></span> Login</a></li>
 
              </ul>
          </div><!-- /.navbar-collapse -->

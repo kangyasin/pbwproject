@@ -17,6 +17,10 @@ Route::get('/', function () {
 
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/front/login', 'CustomerController@index');
+Route::post('/customer/login', 'CustomerController@login');
+Route::get('/customer/register', 'CustomerController@register');
+
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/admin/blog', 'AdminBlogController@index');
@@ -24,13 +28,14 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/admin/edit_blog/{id}', 'AdminBlogController@edit_blog');
 
     Route::get('/admin/add_profile', 'ProfileController@add_profile');
-
     Route::resource('adminblog', 'AdminBlogController');
     Route::resource('adminprofile', 'ProfileController');
+});
+
+Route::group(['middleware' => 'customer'], function(){
 
 });
 
 Route::get('/blog', 'BlogController@index');
 Route::get('/insert-blog', 'BlogController@insert');
-
 Route::get('/detail/{id}', 'BlogController@detail');

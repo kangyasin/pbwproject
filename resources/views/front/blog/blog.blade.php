@@ -14,7 +14,7 @@
             <div class="col-md-4" style="margin-bottom:20px;">
                 <div class="card-content">
                     <div class="card-img">
-                        <img src="https://placeimg.com/380/230/nature" alt="">
+                        <img src="{{asset('images') . '/' . $blog->image_name}}" alt="">
                         <span><h4>{{ $blog->created_at }}</h4></span>
                     </div>
                     <div class="card-desc">

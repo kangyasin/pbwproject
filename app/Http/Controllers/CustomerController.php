@@ -11,8 +11,8 @@ class CustomerController extends Controller
 {
 
     function __construct(){
-        $this->middleware('customer');
-      }
+        // $this->middleware('customer');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -20,7 +20,13 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        // return auth('customer')->user();
+        // return Auth::user('auth');
+
+        try {
+            //code...
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
         //cek if exist customer login
         if(auth('customer')->user()){
             return 'berhasil ke halaman setelah login';
@@ -100,7 +106,7 @@ class CustomerController extends Controller
                     'password' =>  $cekCustomer->password,
                 ];
                 // return 123;
-                $auth = \Auth::guard('customer')->attempt($credentials);
+                $auth = Auth::guard('customer')->attempt($credentials);
             }
         }
 

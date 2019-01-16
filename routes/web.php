@@ -20,7 +20,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/front/login', 'CustomerController@index');
 Route::post('/customer/login', 'CustomerController@login');
 Route::get('/customer/register', 'CustomerController@register');
-
+Route::get('customer', 'CustomerController@index');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/admin/blog', 'AdminBlogController@index');
@@ -33,9 +33,7 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 Route::group(['middleware' => 'customer'], function(){
-    Route::get('/', function(){
-        return 'login berhasi';
-    });
+    Route::get('/logout', 'CustomerController@logout');
 });
 
 Route::get('/blog', 'BlogController@index');

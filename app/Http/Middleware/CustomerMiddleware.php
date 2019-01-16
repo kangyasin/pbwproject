@@ -3,7 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
-
+use Auth;
 class CustomerMiddleware
 {
     /**
@@ -15,7 +15,7 @@ class CustomerMiddleware
      */
     public function handle($request, Closure $next)
     {
-      $auth = \Auth::guard('customer')->check();
+      $auth = Auth::guard('customer')->check();
       if($auth)
       {
         return $next($request);

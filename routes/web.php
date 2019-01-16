@@ -33,7 +33,9 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 Route::group(['middleware' => 'customer'], function(){
-
+    Route::get('/', function(){
+        return 'login berhasi';
+    });
 });
 
 Route::get('/blog', 'BlogController@index');

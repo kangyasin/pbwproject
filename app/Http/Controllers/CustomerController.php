@@ -9,6 +9,10 @@ use Auth;
 
 class CustomerController extends Controller
 {
+
+    function __construct(){
+        $this->middleware('customer');
+      }
     /**
      * Display a listing of the resource.
      *
@@ -85,27 +89,29 @@ class CustomerController extends Controller
     public function login(Request $request){
 
       $email = $request->email;
-      $password = bcrypt($request->password);
+      $password = $request->password;
 
-      $cekCustomer = Customer::whereEmail($email)->first();
-      // return $cekstatus;
-      $credentials = [
-          'email' =>  $cekCustomer->email,
-          'password' =>  $cekCustomer->password,
-      ];
-      // return $credentials;
-      if($cekCustomer){
-        $auth = Auth::guard('customer')->attempt($credentials);
-      }
-      dd($auth);
-      if(isset($auth)){
-        return redirect('/front/login');
+      $cekCustomer = Customer::whereEmail($email)
+      ->first();
+        if(count($cekCustomer) > 0){ //apakah email tersebut ada atau tidak
+            if(\Hash::check($password,$cekCustomer->password)){
+                $credentials = [
+                    'email' =>  $cekCustomer->email,
+                    'password' =>  $cekCustomer->password,
+                ];
+                // return 123;
+                $auth = \Auth::guard('customer')->attempt($credentials);
+            }
+        }
+
+      if($auth){
+        // return redirect('/front/login');
         return "Berhasil Login";
       }else{
         return "Gagal";
       }
 
-      dd($request);
+    //   dd($request);
     }
 
     /**

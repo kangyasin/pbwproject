@@ -82,8 +82,8 @@ class CustomerController extends Controller
 
     public function logout()
     {
-      Session::flush();
-    //   Auth::guard('customer')->logout();
+    //   Session::flush();
+      Auth::guard('customer')->logout();
       return redirect('/blog');
 
     }
@@ -105,17 +105,13 @@ class CustomerController extends Controller
                 $auth = Auth::guard('customer')->attempt($credentials);
                 // dd($auth);
                 if($auth){
-                    // return redirect('/front/login');
-                    return "Berhasil Login";
+                    return redirect('/customer/profile');
                   }else{
-                    return "Gagal";
+                    return redirect('/front/login');
                   }
             }
         }
 
-
-
-    //   dd($request);
     }
 
     /**
@@ -182,5 +178,10 @@ class CustomerController extends Controller
     public function destroy(Customer $customer)
     {
         //
+    }
+
+
+    public function profile(){
+        return auth('customer')->user();
     }
 }

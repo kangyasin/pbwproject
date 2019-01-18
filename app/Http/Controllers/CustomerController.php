@@ -10,31 +10,26 @@ use Auth;
 class CustomerController extends Controller
 {
 
-    function __construct(){
-        // $this->middleware('customer');
-    }
+    // function __construct(){
+    //     // $this->middleware('customer');
+    //     $this->middleware('guest')->except('logout');
+    //     $this->middleware('guest:customer')->except('logout');
+    // }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        // return Auth::user('auth');
 
-        try {
-            //code...
-        } catch (\Throwable $th) {
-            //throw $th;
-        }
-        //cek if exist customer login
+    public function index(){
         if(auth('customer')->user()){
             return 'berhasil ke halaman setelah login';
         }
-
+        //   return 'login gagal';
         return view('front/customer/login');
 
     }
+
 
     /**
     * customer register action
@@ -87,7 +82,8 @@ class CustomerController extends Controller
 
     public function logout()
     {
-      Auth::guard('customer')->logout();
+      Session::flush();
+    //   Auth::guard('customer')->logout();
       return redirect('/blog');
 
     }
@@ -103,19 +99,21 @@ class CustomerController extends Controller
             if(\Hash::check($password,$cekCustomer->password)){
                 $credentials = [
                     'email' =>  $cekCustomer->email,
-                    'password' =>  $cekCustomer->password,
+                    'password' =>  $password,
                 ];
-                // return 123;
+                // return $credentials;
                 $auth = Auth::guard('customer')->attempt($credentials);
+                // dd($auth);
+                if($auth){
+                    // return redirect('/front/login');
+                    return "Berhasil Login";
+                  }else{
+                    return "Gagal";
+                  }
             }
         }
 
-      if($auth){
-        // return redirect('/front/login');
-        return "Berhasil Login";
-      }else{
-        return "Gagal";
-      }
+
 
     //   dd($request);
     }

@@ -19,7 +19,8 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/front/login', 'CustomerController@index');
 Route::post('/customer/login', 'CustomerController@login');
-Route::get('/customer/register', 'CustomerController@register');
+Route::get('/front/register', 'CustomerController@registerpage');
+Route::post('/customer/register', 'CustomerController@register');
 // Route::get('customer', 'CustomerController@index');
 
 Route::group(['middleware' => 'auth'], function () {

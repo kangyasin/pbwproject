@@ -4,13 +4,12 @@
 @parent
 @endsection
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Register Member</div>
-
-                <div class="card-body">
+<div class="container-fluid">
+  <div class="side-body">
+    <h3>Register Customer</h3>
+    <hr><br>
+    <div class="row">
+        <div class="card-body">
                     <form action="/customer/register" method="post">
                         @csrf
 
@@ -73,8 +72,8 @@
                         </div>
                     </form>
                 </div>
-            </div>
         </div>
     </div>
 </div>
 @endsection
+

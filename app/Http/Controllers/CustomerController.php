@@ -10,11 +10,6 @@ use Auth;
 class CustomerController extends Controller
 {
 
-    // function __construct(){
-    //     // $this->middleware('customer');
-    //     $this->middleware('guest')->except('logout');
-    //     $this->middleware('guest:customer')->except('logout');
-    // }
     /**
      * Display a listing of the resource.
      *
@@ -23,29 +18,22 @@ class CustomerController extends Controller
 
     public function index(){
         if(auth('customer')->user()){
-            return 'berhasil ke halaman setelah login';
+            return redirect('/customer/profile');
         }
-        //   return 'login gagal';
         return view('front/customer/login');
+    }
 
+    public function registerpage(){
+        return view('front/customer/register');
     }
 
 
     /**
     * customer register action
     */
-
     public function register(Request $request){
 
-      $customer = new Customer();
-      $customer->name = 'yasin';
-      $customer->email = 'customer2@pbw.com';
-      $customer->password = bcrypt('demo123');
-      $customer->save();
-
-      return 'berhasil daftar';
-
-
+      // return $request;
         $this->validate($request , [
             'name' => 'required|min:5',
             'email' => 'email',
@@ -93,17 +81,17 @@ class CustomerController extends Controller
       $email = $request->email;
       $password = $request->password;
 
-      $cekCustomer = Customer::whereEmail($email)
-      ->first();
-        if(count($cekCustomer) > 0){ //apakah email tersebut ada atau tidak
+      $cekCustomer = Customer::whereEmail($email);
+        if($cekCustomer->count() > 0){ //apakah email tersebut ada atau tidak
+          $cekCustomer = $cekCustomer->first();
+
             if(\Hash::check($password,$cekCustomer->password)){
                 $credentials = [
                     'email' =>  $cekCustomer->email,
                     'password' =>  $password,
                 ];
-                // return $credentials;
+
                 $auth = Auth::guard('customer')->attempt($credentials);
-                // dd($auth);
                 if($auth){
                     return redirect('/customer/profile');
                   }else{
@@ -111,8 +99,7 @@ class CustomerController extends Controller
                   }
             }
         }
-
-    }
+      }
 
     /**
      * Show the form for creating a new resource.
@@ -180,8 +167,13 @@ class CustomerController extends Controller
         //
     }
 
-
     public function profile(){
-        return auth('customer')->user();
+        $auth = auth('customer')->user();
+        $customer = Customer::find($auth->id);
+        return view('front/customer/profile', compact('customer'));
     }
+
+
+
+
 }

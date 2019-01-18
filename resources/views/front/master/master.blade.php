@@ -98,7 +98,13 @@
                  </li>
 
                  <li><a href="#"><span class="glyphicon glyphicon-signal"></span> Link</a></li>
+
+                 @if(auth('customer')->user() !== null)
+                 <li><a href="/customer/logout"><span class="glyphicon glyphicon-send"></span> Logout</a></li>
+                 @else
+                 <li><a href="/front/register"><span class="glyphicon glyphicon-send"></span> Register</a></li>
                  <li><a href="/front/login"><span class="glyphicon glyphicon-send"></span> Login</a></li>
+                 @endif
 
              </ul>
          </div><!-- /.navbar-collapse -->

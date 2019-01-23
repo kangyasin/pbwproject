@@ -42,3 +42,4 @@ Route::group(['middleware' => 'customer'], function(){
 Route::get('/blog', 'BlogController@index');
 Route::get('/insert-blog', 'BlogController@insert');
 Route::get('/detail/{id}', 'BlogController@detail');
+Route::get('category', 'CategoryController@index');

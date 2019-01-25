@@ -10,8 +10,8 @@ class CategoryController extends Controller
 
     public function index(){
         // $category = Category::all();
-        $category = Category::where('id', 1)->with('product')->get();
+        $category = Category::where('id', 1)->with('product.image')->get();
 
-        return $category[0]['product'];
+        return $category;
     }
 }

@@ -9,9 +9,7 @@ class CategoryController extends Controller
     //
 
     public function index(){
-        // $category = Category::all();
-        $category = Category::where('id', 1)->with('product.image')->get();
-
-        return $category;
+      $categories = Category::all();
+      return view('admin.product.category', compact('categories'));
     }
 }

@@ -22,7 +22,9 @@ Route::post('/customer/login', 'CustomerController@login');
 Route::get('/front/register', 'CustomerController@registerpage');
 Route::post('/customer/register', 'CustomerController@register');
 // Route::get('customer', 'CustomerController@index');
-
+Route::get('/ajax', function(){
+    return view('admin.product.ajax');
+});
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/admin/blog', 'AdminBlogController@index');
     Route::get('/admin/add_blog', 'AdminBlogController@add_blog');
@@ -31,6 +33,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/admin/add_profile', 'ProfileController@add_profile');
     Route::resource('adminblog', 'AdminBlogController');
     Route::resource('adminprofile', 'ProfileController');
+
+    Route::resource('/admin/category', 'CategoryController');
+    Route::get('/admin/product/{id}', 'ProductController@index');
+    Route::resource('/admin/product/image/{product}', 'ProductImageController');
+
+
 });
 
 Route::group(['middleware' => 'customer'], function(){
@@ -42,4 +50,4 @@ Route::group(['middleware' => 'customer'], function(){
 Route::get('/blog', 'BlogController@index');
 Route::get('/insert-blog', 'BlogController@insert');
 Route::get('/detail/{id}', 'BlogController@detail');
-Route::get('category', 'CategoryController@index');
+// Route::get('category', 'CategoryController@index');

@@ -6,7 +6,7 @@ use App\Customer;
 use Illuminate\Http\Request;
 use Crypt;
 use Auth;
-
+use Mail;
 class CustomerController extends Controller
 {
 
@@ -52,7 +52,7 @@ class CustomerController extends Controller
           $customer->email = $request->email;
           $customer->password = bcrypt($request->password);
           $customer->save();
-
+          $this->sendEmail($request->name, $request->email);
           return 'berhasil daftar';
     }
 
@@ -174,6 +174,34 @@ class CustomerController extends Controller
     }
 
 
+    public function sendEmail($username, $email)
+    {
+    	#SEND EMAIL HERE
+            $title   = "Ada yang daftar nih";
+            $subject = $title;
+            $icon    = '<h4><font style="color:#fff">PBW</font> Customer</h4>';
+            $content = '<div>
+                             <p>Dear Admin, </p>
+                             <p>Ada yang daftar nih </p>
+                             <table>
+								<tr>
+									<td><p>Name</p></td>
+									<td><p><b>: '.$username.'</b></p></td>
+								</tr>
+								<tr>
+									<td><p>Email</p></td>
+									<td><p><b>: '.$email.'</b></p></td>
+								</tr>
+                             </table>
+                        </div>';
 
+        #END SEND EMAIL
+         $this->email = $email;
+    	  Mail::send('admin.product.send', ['title' => $title, 'icon' => $icon, 'content' => $content], function($message){
+        $message->subject('Register Customer');
+    		$message->from($this->email);
+    		$message->to('cs_admin@pbw.co.id');
+    	});
+    }
 
 }

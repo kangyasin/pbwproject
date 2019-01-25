@@ -21,7 +21,7 @@ class Product extends Migration
             $table->boolean('publish')->nullable();
             $table->timestamps();
 
-            $table->foreign('category_id')->references('id')->on('category_products');
+            $table->foreign('category_id')->references('id')->on('categories');
             });
     }
 

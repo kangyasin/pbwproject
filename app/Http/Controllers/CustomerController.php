@@ -33,7 +33,7 @@ class CustomerController extends Controller
     */
     public function register(Request $request){
 
-      // return $request;
+      // return $request; data
         $this->validate($request , [
             'name' => 'required|min:5',
             'email' => 'email',
